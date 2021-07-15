@@ -6,20 +6,20 @@
       "type": "string",
       "minLength": 1,
       "metadata": {
-        "description": "Username for the Virtual Machine."
+        "description": "testuser"
       }
     },
     "adminPassword": {
       "type": "securestring",
       "metadata": {
-        "description": "Password for the Virtual Machine."
+        "description": "Test@123"
       }
     },
     "dnsNameForPublicIP": {
       "type": "string",
       "minLength": 1,
       "metadata": {
-        "description": "Globally unique DNS Name for the Public IP used to access the Virtual Machine."
+        "description": "ChristiesDNSIP123"
       }
     },
     "windowsOSVersion": {
@@ -31,7 +31,7 @@
         "2012-R2-Datacenter"
       ],
       "metadata": {
-        "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version. Allowed values: 2008-R2-SP1, 2012-Datacenter, 2012-R2-Datacenter."
+        "description": "2012-R2-Datacenter"
       }
     }
   },
@@ -42,7 +42,7 @@
     "nicName": "myVMNic",
     "addressPrefix": "10.0.0.0/16",
     "subnetName": "Subnet",
-    "subnetPrefix": "10.0.0.0/24",
+    "subnetPrefix": "10.0.1.0/24",
     "vhdStorageType": "Standard_LRS",
     "publicIPAddressName": "myPublicIP",
     "publicIPAddressType": "Dynamic",
