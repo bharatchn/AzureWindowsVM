@@ -19,5 +19,5 @@ steps:
     resourceGroupName: 'RG-CTG-BHARAT-KT'
     location: 'East US'
     templateLocation: 'URL of the file'
-    csmFileLink: 'https://github.com/bharatchn/AzureWindowsVM/blob/master/AzureResourceGroup1/WindowsVirtualMachine.json'
+    csmFileLink: 'https://github.com/bharatchn/AzureWindowsVM/blob/master/AzureResourceGroup1/Deploy-AzureResourceGroup.ps1'
     deploymentMode: 'Incremental'
