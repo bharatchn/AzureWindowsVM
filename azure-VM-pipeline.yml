@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureFileCopy@4
+  inputs:
+    SourcePath: 'https://github.com/bharatchn/AzureWindowsVM/tree/master/AzureResourceGroup1'
+    azureSubscription: 'Azure Training'
+    Destination: 'AzureBlob'
+    storage: '$(Build.ArtifactStagingDirectory)\WindowsVirtualMachine.json'
+    ContainerName: 'vmtemplate'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure Training'
+    subscriptionId: 'a27dd098-1a6a-4384-977c-53bbf66ef042'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'RG-CTG-BHARAT-KT'
+    location: 'East US'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(Build.ArtifactStagingDirectory)\WindowsVirtualMachine.json'
+    overrideParameters: |
+      $(vmsUser)
+      $(vmsAdminPass)
+    deploymentMode: 'Incremental'
+
