@@ -10,13 +10,11 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: AzureFileCopy@4
+- task: CopyFiles@2
   inputs:
-    SourcePath: 'https://github.com/bharatchn/AzureWindowsVM/tree/master/AzureResourceGroup1'
-    azureSubscription: 'Azure Training'
-    Destination: 'AzureBlob'
-    storage: '$(Build.ArtifactStagingDirectory)\WindowsVirtualMachine.json'
-    ContainerName: 'vmtemplate'
+    SourceFolder: 'AzureWindowsVM'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
@@ -26,9 +24,9 @@ steps:
     resourceGroupName: 'RG-CTG-BHARAT-KT'
     location: 'East US'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Build.ArtifactStagingDirectory)\WindowsVirtualMachine.json'
+    csmFile: '$(Build.ArtifactStagingDirectory)/WindowsVirtualMachine.json'
+    csmParametersFile: '$(Build.ArtifactStagingDirectory)/WindowsVirtualMachine.parameters.json'
     overrideParameters: |
-      $(vmsUser)
-      $(vmsAdminPass)
+      -administratorLogin $(vmsUser) 
+      -administratorLoginPassword $(vmsAdminPass)
     deploymentMode: 'Incremental'
-
