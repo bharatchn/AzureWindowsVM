@@ -12,7 +12,7 @@ pool:
 steps:
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'https://github.com/bharatchn/AzureWindowsVM/tree/master/AzureResourceGroup1'
+    SourceFolder: 'AzureResourceGroup1'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: AzureResourceManagerTemplateDeployment@3
