@@ -10,14 +10,8 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: AzureResourceManagerTemplateDeployment@3
+- task: CopyFiles@2
   inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'Azure Training'
-    subscriptionId: 'a27dd098-1a6a-4384-977c-53bbf66ef042'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'RG-CTG-BHARAT-KT'
-    location: 'East US'
-    templateLocation: 'URL of the file'
-    csmFileLink: 'https://github.com/Azure/azure-vm-scripts/blob/master/TestDeployments/Test1.ps1'
-    deploymentMode: 'Incremental'
+    SourceFolder: 'AzureWindowsVM'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
