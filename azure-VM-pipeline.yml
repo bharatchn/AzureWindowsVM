@@ -14,7 +14,7 @@ steps:
   inputs:
     SourceFolder: 'AzureWindowsVM'
     Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/deploy'
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
@@ -24,7 +24,7 @@ steps:
     resourceGroupName: 'RG-CTG-BHARAT-KT'
     location: 'East US'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
-    csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
+    csmFile: '$(Build.ArtifactStagingDirectory)/deploy/azuredeploy.json'
+    csmParametersFile: '$(Build.ArtifactStagingDirectory)/deploy/azuredeploy.parameters.json'
     overrideParameters: '-siteName $(siteName) -administratorLogin $(adminUser) -administratorLoginPassword $(ARM_PASS)'
     deploymentMode: 'Incremental'
