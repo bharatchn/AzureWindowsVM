@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- main
 
 pool:
   vmImage: ubuntu-latest
@@ -12,7 +12,7 @@ pool:
 steps:
 - task: CopyFiles@2
   inputs:
-    SourceFolder: 'AzureResourceGroup1'
+    SourceFolder: 'AzureWindowsVM'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: AzureResourceManagerTemplateDeployment@3
@@ -24,9 +24,7 @@ steps:
     resourceGroupName: 'RG-CTG-BHARAT-KT'
     location: 'East US'
     templateLocation: 'Linked artifact'
-    csmFile: '$(Build.ArtifactStagingDirectory)/WindowsVirtualMachine.json'
-    csmParametersFile: '$(Build.ArtifactStagingDirectory)/WindowsVirtualMachine.parameters.json'
-    overrideParameters: |
-      -administratorLogin $(vmsUser) 
-      -administratorLoginPassword $(vmsAdminPass)
+    csmFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.json'
+    csmParametersFile: '$(Build.ArtifactStagingDirectory)/azuredeploy.parameters.json'
+    overrideParameters: '-siteName $(siteName) -administratorLogin $(adminUser) -administratorLoginPassword $(ARM_PASS)'
     deploymentMode: 'Incremental'
